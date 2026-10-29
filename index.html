@@ -1,152 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>謙慎書道会</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  body{margin:0}
-  a{color:#1c1957;text-decoration:none}
-  a:hover{color:#8a2b2b;text-decoration:underline}
-  nav a:hover{background:#1c1957 !important;color:#fff !important;text-decoration:none !important}
+:root{
+  --ink:#22244f; --nav:#2b2d63; --gold:#c9a227; --gold-lt:#e3c15f;
+  --shu:#9c2b21; --cream:#fdfaef; --link:#2b4f9e;
+  /* tints taken from the blueprint */
+  --nav-on:#3a3d80; --label:#f6efd9; --rule:#d8cfae; --rule-lt:#e6dfc4; --muted:#6b6656; --text:#23252c; --text-2:#3a3d46;
+  --sans:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,Meiryo,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"MS PMincho",serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--text);font:400 16px/1.8 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--shu);text-decoration:underline}
+.site{max-width:950px;margin:0 auto;background:#fff;border-inline:1px solid #e2ded2}
+
+/* header + global nav */
+.site-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px}
+.logo{display:flex;align-items:center;gap:12px;color:var(--ink);font:700 26px/1.2 var(--serif);letter-spacing:.08em}
+.logo:hover{color:var(--ink);text-decoration:none}
+.seal{display:grid;place-items:center;width:46px;height:46px;border:2px solid var(--shu);border-radius:50%;color:var(--shu);font:700 13px/1.05 var(--serif);writing-mode:vertical-rl}
+.logo small{display:block;font:600 11px/1.4 var(--sans);letter-spacing:.2em;color:var(--muted)}
+.ph{display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#dcd9d0 0 7px,#e7e4dc 7px 14px);font:12px/1.4 ui-monospace,Menlo,monospace;color:#5f5a4c;text-align:center}
+.tensho-band{width:300px;height:44px}
+.gnav{background:var(--nav);border-top:2px solid var(--gold)}
+.gnav ul{display:flex;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+.gnav a{display:block;padding:12px 22px;font:600 16px/1.5 var(--serif);color:var(--gold-lt);border-right:1px solid rgba(255,255,255,.18)}
+.gnav li:last-child a{border-right:0}
+.gnav a:hover{color:#fff;text-decoration:none;background:rgba(255,255,255,.06)}
+.gnav a[aria-current="page"]{color:#fff;background:var(--nav-on);box-shadow:inset 0 -3px 0 var(--gold)}
+.hero{height:250px;border-bottom:3px solid var(--nav)}
+
+/* layout: 610 main + 30 gutter + 280 rail */
+.layout{display:flex;gap:30px;padding:24px 18px 30px}
+.main{width:610px;min-width:0}
+.rail{width:280px;flex:none}
+
+/* cream panels */
+.panel{background:var(--cream);border:1px solid var(--rule);margin-bottom:20px}
+.panel-head{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid var(--rule)}
+.panel-head h2{font:700 20px/1.4 var(--serif);color:var(--ink)}
+.panel-head .sub{font:500 14px var(--sans);color:var(--muted)}
+.panel-head .aside{margin-left:auto;font-size:15px}
+.panel-head .tag{margin-left:auto;font:500 14px var(--sans);color:var(--shu)}
+.bar{flex:none;display:inline-block;width:4px;height:20px;background:var(--gold)}
+.panel-foot{display:flex;flex-wrap:wrap;gap:16px;padding:13px 16px;border-top:1px solid var(--rule)}
+.spec{width:100%;border-collapse:collapse}
+.spec th{width:104px;text-align:left;vertical-align:top;padding:9px 16px;background:var(--label);border-bottom:1px solid var(--rule-lt);font-weight:700;color:var(--ink);white-space:nowrap}
+.spec td{padding:9px 16px;border-bottom:1px solid var(--rule-lt)}
+.spec tr:last-child>*{border-bottom:0}
+.tbc{color:var(--shu);font-size:14px}
+.news{list-style:none;margin:0;padding:6px 16px 12px}
+.news li{display:flex;gap:14px;padding:9px 0;border-bottom:1px dotted var(--rule);line-height:1.6}
+.news li:last-child{border-bottom:0}
+.news time{flex:none;width:92px;font:700 16px/1.6 ui-monospace,Menlo,monospace;color:var(--ink)}
+.sages{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;list-style:none;margin:0;padding:14px 16px}
+.sages a{display:block;height:100%;background:#fff;border:1px solid var(--rule);padding:8px 6px 10px;text-align:center;font:600 16px/1.5 var(--serif);color:var(--ink)}
+.sages .ph{height:132px;margin-bottom:7px}
+.sages .more{display:flex;align-items:center;justify-content:center;background:var(--label);border-color:var(--gold);font:600 15px var(--sans);color:var(--shu)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;list-style:none;margin:0;padding:14px 16px}
+.gallery .ph{height:190px;align-items:flex-end;padding-bottom:8px}
+.note{padding:0 16px 13px;font-size:15px;color:var(--muted)}
+.cta{display:flex;align-items:center;gap:16px;background:var(--label);border:1px solid var(--gold);padding:16px}
+.cta h2{font:700 19px/1.5 var(--serif);color:var(--ink)}
+.cta p{margin-top:6px;color:var(--text-2)}
+.btn{flex:none;display:inline-block;background:var(--nav);color:#fff;font-weight:600;padding:13px 20px}
+.btn:hover{background:var(--ink);color:#fff;text-decoration:none}
+
+/* side rail */
+.banner{display:block;background:var(--cream);border:1px solid var(--rule);margin-bottom:16px;color:var(--text-2)}
+.banner:hover{text-decoration:none;color:var(--text-2);border-color:var(--gold)}
+.banner-head{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-bottom:1px solid var(--rule);font:700 17px/1.5 var(--serif);color:var(--ink)}
+.banner-head span{color:var(--gold);font-size:13px}
+.banner p{padding:10px 12px;font-size:15px;line-height:1.7}
+.banner .ph{height:120px}
+.office{background:#fff;border:1px solid var(--rule);padding:12px}
+.office h2{font:700 17px/1.5 var(--serif);color:var(--ink);border-bottom:1px solid var(--rule);padding-bottom:8px}
+.office address{margin-top:8px;font-style:normal;font-size:15px;color:var(--text-2)}
+.office a{display:block;margin-top:10px}
+
+/* footer */
+.foot-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 18px;background:var(--nav);padding:11px 18px;color:#fff;font-size:15px}
+.foot-bar ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+.foot-bar a{color:var(--gold-lt)}
+.foot-bar a:hover{color:#fff}
+.foot-addr{padding:14px 18px;font-size:15px;color:var(--text-2)}
+.foot-addr address{font-style:normal}
+.warn{color:var(--shu)}
+
+@media (max-width:960px){
+  .layout{flex-direction:column}
+  .main,.rail{width:auto}
+  .tensho-band{display:none}
+}
+@media (max-width:600px){
+  .gnav a{padding:10px 14px}
+  .sages,.gallery{grid-template-columns:repeat(2,1fr)}
+  .cta{flex-direction:column;align-items:flex-start}
+  .news li{flex-direction:column;gap:0}
+}
 </style>
 </head>
 <body>
-<div style="max-width:1000px;margin:0 auto;background:#faf8f3;font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',serif;font-size:16px;line-height:1.8;color:#2f2f2f;border-left:1px solid #ddd6c8;border-right:1px solid #ddd6c8">
+<div class="site">
 
-  <header style="display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:#ffffff url('assets/head_img.gif') right center/340px 90px no-repeat;border-bottom:3px solid #1c1957;position:sticky;top:0;z-index:10">
-    <img src="assets/head_logo.gif" alt="謙慎書道会" style="height:50px;width:auto">
-    <nav>
-      <ul style="list-style:none;display:flex;margin:0;padding:0;gap:4px">
-        <li><a href="#" style="display:block;padding:10px 14px;color:#1c1957;font-weight:700;font-size:14px;letter-spacing:.03em;background:#fff;border-radius:3px">HOME</a></li>
-        <li><a href="#about" style="display:block;padding:10px 14px;color:#1c1957;font-weight:700;font-size:14px;letter-spacing:.03em;background:#fff;border-radius:3px">謙慎書道会とは</a></li>
-        <li><a href="#sages" style="display:block;padding:10px 14px;color:#1c1957;font-weight:700;font-size:14px;letter-spacing:.03em;background:#fff;border-radius:3px">謙慎7賢人</a></li>
-        <li><a href="#exhibition" style="display:block;padding:10px 14px;color:#1c1957;font-weight:700;font-size:14px;letter-spacing:.03em;background:#fff;border-radius:3px">謙慎書道会展</a></li>
-        <li><a href="#" style="display:block;padding:10px 14px;color:#1c1957;font-weight:700;font-size:14px;letter-spacing:.03em;background:#fff;border-radius:3px">リンク</a></li>
-      </ul>
-    </nav>
+  <header class="site-header">
+    <a class="logo" href="/">
+      <span class="seal" aria-hidden="true">謙慎</span>
+      <span>謙慎書道会<small>KENSHIN SHODOKAI</small></span>
+    </a>
+    <!-- Swap for the existing 篆書 pattern band image -->
+    <div class="tensho-band ph" aria-hidden="true">篆書パターン帯（現行素材）</div>
   </header>
 
-  <div style="padding:0">
-    <img src="assets/toha_img.jpg" alt="謙慎書道 扁額" style="width:100%;height:auto;display:block;border-bottom:1px solid #ddd6c8">
+  <nav class="gnav" aria-label="グローバルナビゲーション">
+    <ul>
+      <li><a href="/" aria-current="page">▶ HOME</a></li>
+      <li><a href="/toha/">▶ 謙慎書道会とは</a></li>
+      <li><a href="/sages/">▶ 7賢人</a></li>
+      <li><a href="/ten/">▶ 謙慎書道会展</a></li>
+      <li><a href="/link/">▶ リンク</a></li>
+    </ul>
+  </nav>
+
+  <!-- Swap for the existing 扁額 photograph -->
+  <div class="hero ph" role="img" aria-label="謙慎書堂 扁額">扁額写真（現行素材）</div>
+
+  <div class="layout">
+    <main class="main">
+
+      <section class="panel" aria-labelledby="h-next">
+        <div class="panel-head">
+          <span class="bar" aria-hidden="true"></span>
+          <h2 id="h-next">第88回 謙慎書道会展</h2>
+          <span class="tag">次回展</span>
+        </div>
+        <table class="spec">
+          <tr><th scope="row">会期</th><td>2027年3月 <span class="tbc">※要確認</span></td></tr>
+          <tr><th scope="row">会場</th><td>国立新美術館 <span class="tbc">※要確認</span></td></tr>
+          <tr><th scope="row">開館時間</th><td>10:00 – 18:00 <span class="tbc">※要確認</span></td></tr>
+          <tr><th scope="row">アクセス</th><td>東京メトロ 乃木坂駅 直結 <span class="tbc">※要確認</span></td></tr>
+        </table>
+        <div class="panel-foot">
+          <a href="/ten/">▶ 開催概要を見る</a>
+          <a href="/ten/access/">▶ 会場アクセス</a>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-news">
+        <div class="panel-head">
+          <span class="bar" aria-hidden="true"></span>
+          <h2 id="h-news" style="letter-spacing:.06em">NEWS</h2>
+          <span class="sub">お知らせ</span>
+          <a class="aside" href="/news/">▶ バックナンバー</a>
+        </div>
+        <ul class="news">
+          <li><time datetime="2026-05-18">2026/5/18</time><a href="#">東部展の開催情報を更新しました。</a></li>
+          <li><time datetime="2026-05-08">2026/5/8</time><a href="#">第88回展の【常任理事】昇格役員一覧を公開しました。</a></li>
+          <li><time datetime="2026-05-08">2026/5/8</time><a href="#">第88回展の【理事】昇格役員一覧を公開しました。</a></li>
+          <li><time datetime="2026-04-30">2026/4/30</time><a href="#">静岡・神奈川展の開催情報を更新しました。</a></li>
+          <li><time datetime="2026-03-27">2026/3/27</time><a href="#">地域別活動分会のページを更新しました。</a></li>
+          <li><time datetime="2026-03-19">2026/3/19</time><a href="#">第88回展の入賞目録を公開しました。</a></li>
+          <li><time datetime="2026-02-13">2026/2/13</time><a href="#">第88回展の開催情報を更新しました。</a></li>
+        </ul>
+      </section>
+
+      <section class="panel" aria-labelledby="h-sages">
+        <div class="panel-head">
+          <span class="bar" aria-hidden="true"></span>
+          <h2 id="h-sages">7賢人</h2>
+          <span class="sub">会の礎を築いた七人</span>
+        </div>
+        <ul class="sages">
+          <li><a href="/sages/nishikawa.html"><div class="ph" aria-hidden="true">肖像</div>西川 寧</a></li>
+          <li><a href="/sages/aoyama.html"><div class="ph" aria-hidden="true">肖像</div>青山 杉雨</a></li>
+          <li><a href="/sages/kamijo.html"><div class="ph" aria-hidden="true">肖像</div>上條 信山</a></li>
+          <li><a href="/sages/tonomura.html"><div class="ph" aria-hidden="true">肖像</div>殿村 藍田</a></li>
+          <li><a href="/sages/asami.html"><div class="ph" aria-hidden="true">肖像</div>淺見 筧洞</a></li>
+          <li><a href="/sages/naruse.html"><div class="ph" aria-hidden="true">肖像</div>成瀬 映山</a></li>
+          <li><a href="/sages/kobayashi.html"><div class="ph" aria-hidden="true">肖像</div>小林 斗盦</a></li>
+          <li><a class="more" href="/sages/">▶ 一覧へ</a></li>
+        </ul>
+      </section>
+
+      <section class="panel" aria-labelledby="h-gallery">
+        <div class="panel-head">
+          <span class="bar" aria-hidden="true"></span>
+          <h2 id="h-gallery">作品ギャラリー</h2>
+          <a class="aside" href="/gallery/">▶ 受賞作品一覧</a>
+        </div>
+        <ul class="gallery">
+          <li><a href="#"><div class="ph">受賞作品①</div></a></li>
+          <li><a href="#"><div class="ph">受賞作品②</div></a></li>
+          <li><a href="#"><div class="ph">代表作①</div></a></li>
+          <li><a href="#"><div class="ph">代表作②</div></a></li>
+        </ul>
+        <p class="note">（画像をクリックすると拡大します）</p>
+      </section>
+
+      <section class="cta" aria-labelledby="h-cta">
+        <div>
+          <h2 id="h-cta">公募・出品をお考えの方へ</h2>
+          <p>出品規定・出品申込の手順をご案内しています。</p>
+        </div>
+        <a class="btn" href="/ten/kitei.pdf">▶ 出品要項（PDF）</a>
+      </section>
+
+    </main>
+
+    <aside class="rail" aria-label="特集・事務局">
+      <a class="banner" href="/zadankai/">
+        <div class="banner-head">▎特別座談会<span aria-hidden="true">▶▶</span></div>
+        <p>「謙慎書道会70回記念展に寄せて」<br>七十年の歩みと今後の展望を語る</p>
+        <div class="ph" aria-hidden="true">座談会写真（現行素材）</div>
+      </a>
+      <a class="banner" href="/event/">
+        <div class="banner-head">▎過去のイベント紹介<span aria-hidden="true">▶▶</span></div>
+        <p>第68回 謙慎書道会展 特別イベント<br>「書こう！ぼくとわたしの手書き文字」</p>
+        <div class="ph" aria-hidden="true">イベント写真（現行素材）</div>
+      </a>
+      <section class="office" aria-labelledby="h-office">
+        <h2 id="h-office">事務局</h2>
+        <address>〒102-0072<br>東京都千代田区飯田橋3-2-4<br>UNOビル4階<br>TEL：03-3221-1136<br>FAX：03-3221-1138</address>
+        <a href="/contact/">▶ お問い合わせ</a>
+      </section>
+    </aside>
   </div>
 
-  <section style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid #ddd6c8;background:#f1eee2">
-    <div style="padding:28px 30px;border-right:1px solid #ddd6c8">
-      <h2 style="margin:0 0 16px;font-size:22px;font-family:'Yuji Syuku',serif;font-weight:400;color:#1c1957;text-align:center">ニュース</h2>
-      <table style="width:100%;border-collapse:collapse;font-size:15px">
-        <tbody>
-          <tr style="border-bottom:1px solid #eae5d8"><td style="padding:8px 8px 8px 0;white-space:nowrap;color:#666;vertical-align:top">2026/5/18</td><td style="padding:8px 0"><a href="#">東部展の開催情報を更新しました。</a></td></tr>
-          <tr style="border-bottom:1px solid #eae5d8"><td style="padding:8px 8px 8px 0;white-space:nowrap;color:#666;vertical-align:top">2026/5/8</td><td style="padding:8px 0"><a href="#">第88回展の【常任理事】昇格役員一覧を公開しました。</a></td></tr>
-          <tr style="border-bottom:1px solid #eae5d8"><td style="padding:8px 8px 8px 0;white-space:nowrap;color:#666;vertical-align:top">2026/5/8</td><td style="padding:8px 0"><a href="#">第88回展の【理事】昇格役員一覧を公開しました。</a></td></tr>
-          <tr style="border-bottom:1px solid #eae5d8"><td style="padding:8px 8px 8px 0;white-space:nowrap;color:#666;vertical-align:top">2026/4/30</td><td style="padding:8px 0"><a href="#">静岡・神奈川展の開催情報を更新しました。</a></td></tr>
-          <tr style="border-bottom:1px solid #eae5d8"><td style="padding:8px 8px 8px 0;white-space:nowrap;color:#666;vertical-align:top">2026/3/27</td><td style="padding:8px 0"><a href="#">地域別活動分会のページを更新しました。</a></td></tr>
-          <tr style="border-bottom:1px solid #eae5d8"><td style="padding:8px 8px 8px 0;white-space:nowrap;color:#666;vertical-align:top">2026/3/19</td><td style="padding:8px 0"><a href="#">第88回展の入賞目録を公開しました。</a></td></tr>
-          <tr><td style="padding:8px 8px 8px 0;white-space:nowrap;color:#666;vertical-align:top">2026/2/13</td><td style="padding:8px 0"><a href="#">第88回展の開催情報を更新しました。</a></td></tr>
-        </tbody>
-      </table>
+  <footer>
+    <div class="foot-bar">
+      <small>Copyright(c) 2026 謙慎書道会, All Rights Reserved.</small>
+      <ul>
+        <li><a href="/contact/">▶ お問い合わせ</a></li>
+        <li><a href="/sitemap/">▶ サイトマップ</a></li>
+      </ul>
     </div>
-    <div style="padding:28px 30px">
-      <h2 style="margin:0 0 16px;font-size:22px;font-family:'Yuji Syuku',serif;font-weight:400;color:#1c1957;text-align:center">トピックス</h2>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <a href="#" style="display:flex;gap:12px;padding:12px;background:#fff;border:1px solid #ddd6c8;border-left:5px solid #1c1957">
-          <div style="width:88px;height:66px;flex:none;border-radius:4px;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:10px;color:#999;text-align:center">座談会写真</div>
-          <div>
-            <div style="font-size:15px;color:#666;margin-bottom:4px">座談会</div>
-            <div style="font-size:16px;color:#2f2f2f">誌上座談会のご紹介</div>
-          </div>
-        </a>
-        <a href="#" style="display:flex;gap:12px;padding:12px;background:#fff;border:1px solid #ddd6c8;border-left:5px solid #1c1957">
-          <div style="width:88px;height:66px;flex:none;border-radius:4px;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:10px;color:#999;text-align:center">イベント写真</div>
-          <div>
-            <div style="font-size:15px;color:#666;margin-bottom:4px">イベント</div>
-            <div style="font-size:16px;color:#2f2f2f">過去のイベント紹介</div>
-          </div>
-        </a>
-        <div style="display:flex;gap:12px;padding:12px;background:#f2f0e8;border:1px dashed #c9c2ac;border-left:5px solid #c9c2ac">
-          <div style="width:88px;height:66px;flex:none;border-radius:4px;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px);display:flex;align-items:center;justify-content:center;font-family:ui-monospace,monospace;font-size:10px;color:#999;text-align:center">準備中</div>
-          <div>
-            <div style="font-size:15px;color:#999;margin-bottom:4px">トピックス</div>
-            <div style="font-size:16px;color:#999;font-family:ui-monospace,monospace">準備中（3件目のトピックス）</div>
-          </div>
-        </div>
-      </div>
+    <div class="foot-addr">
+      <address>謙慎書道会 事務局　〒102-0072 東京都千代田区飯田橋3-2-4 UNOビル4階　TEL：03-3221-1136　FAX：03-3221-1138</address>
+      <p class="warn">※当サイトに掲載されている記事や画像などの無断転載を禁止します。</p>
     </div>
-  </section>
-
-  <section id="about" style="padding:32px 30px;border-bottom:1px solid #ddd6c8;background:#ffffff">
-    <h2 style="margin:0 0 18px;font-size:24px;font-family:'Yuji Syuku',serif;font-weight:400;color:#1c1957;text-align:center">謙慎書道会とは</h2>
-    <p style="margin:0 0 14px">謙慎書道会は、東京都千代田区飯田橋に事務局を置く書道団体です。明治・大正期の大家である西川春洞の系統を中心とし、古典を尊重し、古典に学び、古典に立脚した学書の姿勢で書の本質を追求しています。</p>
-    <p style="margin:0">1933年（昭和8年）、西川寧、林祖洞、江川碧潭、鳥海鵠洞、金子慶雲によって創立され、以来、全国規模の会員組織として書道展の開催や機関誌の発行、後進の指導にあたっています。</p>
-  </section>
-
-  <section id="sages" style="padding:32px 30px;border-bottom:1px solid #ddd6c8;background:#f1eee2">
-    <h2 style="margin:0 0 8px;font-size:24px;font-family:'Yuji Syuku',serif;font-weight:400;color:#1c1957;text-align:center">謙慎7賢人</h2>
-    <p style="margin:0 0 20px;color:#555;text-align:center">謙慎書道会の隆盛を築き上げた7名の先師です。</p>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
-      <div style="padding:18px 10px;text-align:center;background:#fff;border:1px solid #ddd6c8">
-        <div style="width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px)"></div>
-        <div style="font-size:16px">西川寧</div>
-      </div>
-      <div style="padding:18px 10px;text-align:center;background:#fff;border:1px solid #ddd6c8">
-        <div style="width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px)"></div>
-        <div style="font-size:16px">青山杉雨</div>
-      </div>
-      <div style="padding:18px 10px;text-align:center;background:#fff;border:1px solid #ddd6c8">
-        <div style="width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px)"></div>
-        <div style="font-size:16px">上條信山</div>
-      </div>
-      <div style="padding:18px 10px;text-align:center;background:#fff;border:1px solid #ddd6c8">
-        <div style="width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px)"></div>
-        <div style="font-size:16px">殿村藍田</div>
-      </div>
-      <div style="padding:18px 10px;text-align:center;background:#fff;border:1px solid #ddd6c8">
-        <div style="width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px)"></div>
-        <div style="font-size:16px">淺見筧洞</div>
-      </div>
-      <div style="padding:18px 10px;text-align:center;background:#fff;border:1px solid #ddd6c8">
-        <div style="width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px)"></div>
-        <div style="font-size:16px">成瀬映山</div>
-      </div>
-      <div style="padding:18px 10px;text-align:center;background:#fff;border:1px solid #ddd6c8">
-        <div style="width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:repeating-linear-gradient(45deg,#e7e2d3,#e7e2d3 4px,#f2efe6 4px,#f2efe6 8px)"></div>
-        <div style="font-size:16px">小林斗盦</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="exhibition" style="padding:32px 30px;border-bottom:1px solid #ddd6c8;background:#ffffff">
-    <h2 style="margin:0 0 18px;font-size:24px;font-family:'Yuji Syuku',serif;font-weight:400;color:#1c1957;text-align:center">謙慎書道会展</h2>
-    <p style="margin:0 0 20px;text-align:center">謙慎書道会の会員による作品を展示する、年に一度の展覧会です。第88回展は下記の会場にて開催されます。</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
-      <div style="padding:20px;background:#f7f5ee;border:1px solid #ddd6c8;text-align:left">
-        <div style="font-size:15px;color:#666;margin-bottom:8px">第一会場</div>
-        <div style="font-size:16px;margin-bottom:6px">東京都美術館</div>
-        <div style="font-size:14px;color:#555">会期：2026年3月18日（水）〜3月23日（月）<br>AM9:30〜PM5:30<br>（入場は閉室の30分前まで）</div>
-      </div>
-      <div style="padding:20px;background:#f7f5ee;border:1px solid #ddd6c8;text-align:left">
-        <div style="font-size:15px;color:#666;margin-bottom:8px">第二会場</div>
-        <div style="font-size:16px;margin-bottom:6px">池袋サンシャインシティ<br>ワールドインポートマートビル4階</div>
-        <div style="font-size:14px;color:#555">会期：2026年3月16日（月）〜3月22日（日）<br>AM10:00〜PM6:00</div>
-      </div>
-      <div style="padding:20px;background:#f7f5ee;border:1px solid #ddd6c8;text-align:left">
-        <div style="font-size:15px;color:#666;margin-bottom:8px">入場料</div>
-        <div style="font-size:16px;margin-bottom:6px">無料</div>
-        <div style="font-size:14px;color:#555">どなたでもご覧いただけます</div>
-      </div>
-    </div>
-  </section>
-
-  <footer style="padding:28px 30px;text-align:center;font-size:14px;color:#e6e4f0;background:#1c1957">
-    <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.2)">
-      <a href="#" style="margin:0 14px;color:#fff">お問い合わせ</a>
-      <a href="#" style="margin:0 14px;color:#fff">サイトマップ</a>
-    </div>
-    <p style="margin:0 0 6px">謙慎書道会 事務局　〒102-0072　東京都千代田区飯田橋3-2-4 UNOビル4階　TEL：03-3221-1136　FAX：03-3221-1138</p>
-    <p style="margin:0 0 6px;font-size:13px">※当サイトに掲載されている記事や画像などの無断転載を禁止します。</p>
-    <p style="margin:0;font-size:13px;color:#c9c6e0">Copyright(c) 2026 謙慎書道会, All Rights Reserved.</p>
   </footer>
 
 </div>
