@@ -24,6 +24,7 @@ a:hover{color:var(--shu);text-decoration:underline}
 .site-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px}
 .logo{display:flex;align-items:center;gap:12px;color:var(--ink);font:700 26px/1.2 var(--serif);letter-spacing:.08em}
 .logo:hover{color:var(--ink);text-decoration:none}
+.logo img{display:block;height:56px;width:auto}
 .seal{display:grid;place-items:center;width:46px;height:46px;border:2px solid var(--shu);border-radius:50%;color:var(--shu);font:700 13px/1.05 var(--serif);writing-mode:vertical-rl}
 .logo small{display:block;font:600 11px/1.4 var(--sans);letter-spacing:.2em;color:var(--muted)}
 .ph{display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(135deg,#dcd9d0 0 7px,#e7e4dc 7px 14px);font:12px/1.4 ui-monospace,Menlo,monospace;color:#5f5a4c;text-align:center}
@@ -34,7 +35,8 @@ a:hover{color:var(--shu);text-decoration:underline}
 .gnav li:last-child a{border-right:0}
 .gnav a:hover{color:#fff;text-decoration:none;background:rgba(255,255,255,.06)}
 .gnav a[aria-current="page"]{color:#fff;background:var(--nav-on);box-shadow:inset 0 -3px 0 var(--gold)}
-.hero{height:250px;border-bottom:3px solid var(--nav)}
+.hero{margin:0;background:#3b3a33;border-bottom:3px solid var(--nav)}
+.hero img{display:block;width:100%;height:auto;aspect-ratio:800/261;object-fit:cover}
 
 /* layout: 610 main + 30 gutter + 280 rail */
 .layout{display:flex;gap:30px;padding:24px 18px 30px}
@@ -62,6 +64,8 @@ a:hover{color:var(--shu);text-decoration:underline}
 .sages{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;list-style:none;margin:0;padding:14px 16px}
 .sages a{display:block;height:100%;background:#fff;border:1px solid var(--rule);padding:8px 6px 10px;text-align:center;font:600 16px/1.5 var(--serif);color:var(--ink)}
 .sages .ph{height:132px;margin-bottom:7px}
+.portrait{display:block;width:100%;object-fit:cover;object-position:center top}
+.sages .portrait{height:160px;margin-bottom:7px}
 .sages .more{display:flex;align-items:center;justify-content:center;background:var(--label);border-color:var(--gold);font:600 15px var(--sans);color:var(--shu)}
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;list-style:none;margin:0;padding:14px 16px}
 .gallery .ph{height:190px;align-items:flex-end;padding-bottom:8px}
@@ -79,6 +83,7 @@ a:hover{color:var(--shu);text-decoration:underline}
 .banner-head span{color:var(--gold);font-size:13px}
 .banner p{padding:10px 12px;font-size:15px;line-height:1.7}
 .banner .ph{height:120px}
+.banner-img{display:block;width:100%;height:140px;object-fit:cover;object-position:center}
 .office{background:#fff;border:1px solid var(--rule);padding:12px}
 .office h2{font:700 17px/1.5 var(--serif);color:var(--ink);border-bottom:1px solid var(--rule);padding-bottom:8px}
 .office address{margin-top:8px;font-style:normal;font-size:15px;color:var(--text-2)}
@@ -104,32 +109,140 @@ a:hover{color:var(--shu);text-decoration:underline}
   .cta{flex-direction:column;align-items:flex-start}
   .news li{flex-direction:column;gap:0}
 }
+
+/* ===== Responsive / mobile ===== */
+.gnav .gnav-sub{display:none}
+img{max-width:100%}
+.menu-btn{display:none}
+@media (max-width:960px){
+  /* tablet portrait + mobile order: 次回展 → 特集バナー → 事務局 → NEWS → 7賢人 → ギャラリー → 公募 */
+  .layout:has(.rail){gap:24px}
+  .layout:has(.rail) .main,.layout:has(.rail) .rail{display:contents}
+  .main>*,.rail>*{margin-bottom:0}
+  .main>:nth-child(1){order:1}
+  .rail>.banner{order:2}
+  .rail>.office{order:3}
+  .main>:nth-child(2){order:4}
+  .main>:nth-child(3){order:5}
+  .main>:nth-child(4){order:6}
+  .main>:nth-child(5){order:7}
+}
+@media (max-width:768px){
+  .site{border-inline:0}
+  .site-header{position:sticky;top:0;z-index:20;padding:10px 16px;background:#fff;border-bottom:1px solid #e2ded2}
+  .logo img{height:40px}
+  .tensho-band{display:none}
+  .menu-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex:none;width:48px;height:48px;padding:0;background:var(--nav);color:#fff;border:0;cursor:pointer;font:600 10px/1 var(--sans)}
+  .menu-btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  .menu-icon{position:relative;display:block;width:20px;height:2px;margin-top:6px;background:var(--gold-lt);transition:background .2s}
+  .menu-icon::before,.menu-icon::after{content:"";position:absolute;left:0;width:20px;height:2px;background:var(--gold-lt);transition:transform .2s}
+  .menu-icon::before{top:-6px}
+  .menu-icon::after{top:6px}
+  .menu-btn[aria-expanded="true"] .menu-icon{background:transparent}
+  .menu-btn[aria-expanded="true"] .menu-icon::before{transform:translateY(6px) rotate(45deg)}
+  .menu-btn[aria-expanded="true"] .menu-icon::after{transform:translateY(-6px) rotate(-45deg)}
+  .menu-label{margin-top:6px}
+
+  .js .gnav{display:none}
+  .js .gnav.is-open{display:block;position:sticky;top:69px;z-index:19}
+  .gnav ul{flex-direction:column}
+  .gnav a{padding:13px 16px;border-right:0;border-bottom:1px solid rgba(255,255,255,.14);font-size:17px}
+  .gnav a[aria-current="page"]{box-shadow:inset 4px 0 0 var(--gold)}
+  .gnav .gnav-sub{display:block;background:#23255a}
+  .gnav .gnav-sub a{padding:11px 16px 11px 40px;font:500 16px/1.5 var(--sans);color:#fff}
+  .gnav .gnav-sub a::before{content:"−";margin-right:8px;color:var(--gold-lt)}
+  .gnav .gnav-sub a[aria-current="page"]{background:var(--nav-on);box-shadow:inset 4px 0 0 var(--gold)}
+
+  .crumbs{padding:10px 16px;font-size:14px;overflow-x:auto;white-space:nowrap}
+  .crumbs ol{flex-wrap:nowrap}
+
+  .layout{flex-direction:column;gap:24px;padding:18px 16px 28px}
+  .main,.rail,.widget{width:auto}
+  .content{order:1}
+  .widget{order:2}
+  .page-title h1,.page-label{font-size:24px}
+  .sub-head{font-size:18px}
+  .photo{height:180px}
+
+  /* home */
+  .panel-head{flex-wrap:wrap;padding:12px 14px}
+  .spec th{width:88px;padding:9px 12px}
+  .spec td{padding:9px 12px}
+  .news{padding:4px 14px 10px}
+  .news li{flex-direction:column;gap:0}
+  .news time{width:auto;font-size:14px}
+  .sages{grid-template-columns:repeat(3,1fr);padding:12px 14px}
+  .sages .portrait{height:auto;aspect-ratio:3/4}
+  .gallery{grid-template-columns:repeat(2,1fr);padding:12px 14px}
+  .gallery .ph{height:150px}
+  .cta{flex-direction:column;align-items:stretch}
+  .btn{text-align:center}
+
+  /* 7賢人 list */
+  .sage-card{flex-direction:row;gap:14px;padding:12px}
+  .sage-card .portrait{width:96px;height:128px}
+  .sage-card h2{font-size:21px}
+
+  /* profile */
+  .profile{flex-direction:column}
+  .profile .portrait{width:150px;height:200px}
+  .profile h1{font-size:26px}
+  .timeline tbody tr{display:grid;grid-template-columns:auto 1fr;column-gap:12px;padding:10px 0;border-bottom:1px dotted var(--rule)}
+  .timeline tbody tr:last-child{border-bottom:0}
+  .timeline tbody th,.timeline tbody td{width:auto;padding:0;border:0}
+  .timeline tbody td:last-child{grid-column:1/-1;margin-top:2px}
+  .works{grid-template-columns:repeat(2,1fr)}
+  .works button{height:160px}
+  .pager{flex-direction:column}
+
+  /* footer */
+  .foot-bar{flex-direction:column;align-items:flex-start;padding:14px 16px}
+  .foot-addr{padding:14px 16px}
+}
+@media (max-width:560px){
+  .rail{grid-template-columns:1fr}
+  .sages{grid-template-columns:repeat(2,1fr)}
+}
 </style>
+<script>document.documentElement.className+=" js";</script>
 </head>
 <body>
 <div class="site">
 
   <header class="site-header">
     <a class="logo" href="/">
-      <span class="seal" aria-hidden="true">謙慎</span>
-      <span>謙慎書道会<small>KENSHIN SHODOKAI</small></span>
+      <img src="images/謙慎書道会.jpg" width="340" height="90" alt="謙慎書道会">
     </a>
     <!-- Swap for the existing 篆書 pattern band image -->
+    <button class="menu-btn" type="button" aria-controls="gnav" aria-expanded="false" aria-label="メニューを開く">
+      <span class="menu-icon" aria-hidden="true"></span><span class="menu-label" aria-hidden="true">MENU</span>
+    </button>
     <div class="tensho-band ph" aria-hidden="true">篆書パターン帯（現行素材）</div>
   </header>
 
-  <nav class="gnav" aria-label="グローバルナビゲーション">
+  <nav class="gnav" id="gnav" aria-label="グローバルナビゲーション">
     <ul>
       <li><a href="/" aria-current="page">▶ HOME</a></li>
       <li><a href="/toha/">▶ 謙慎書道会とは</a></li>
-      <li><a href="/sages/">▶ 7賢人</a></li>
+      <li><a href="/sages/">▶ 7賢人</a>
+        <ul class="gnav-sub" aria-label="7賢人">
+          <li><a href="/sages/nishikawa.html">西川 寧</a></li>
+          <li><a href="/sages/aoyama.html">青山 杉雨</a></li>
+          <li><a href="/sages/kamijo.html">上條 信山</a></li>
+          <li><a href="/sages/tonomura.html">殿村 藍田</a></li>
+          <li><a href="/sages/asami.html">淺見 筧洞</a></li>
+          <li><a href="/sages/naruse.html">成瀬 映山</a></li>
+          <li><a href="/sages/kobayashi.html">小林 斗盦</a></li>
+        </ul>
+      </li>
       <li><a href="/ten/">▶ 謙慎書道会展</a></li>
       <li><a href="/link/">▶ リンク</a></li>
     </ul>
   </nav>
 
-  <!-- Swap for the existing 扁額 photograph -->
-  <div class="hero ph" role="img" aria-label="謙慎書堂 扁額">扁額写真（現行素材）</div>
+  <figure class="hero">
+    <img src="images/謙慎書堂 扁額.jpg" width="800" height="261" alt="謙慎書堂 扁額">
+  </figure>
 
   <div class="layout">
     <main class="main">
@@ -177,13 +290,13 @@ a:hover{color:var(--shu);text-decoration:underline}
           <span class="sub">会の礎を築いた七人</span>
         </div>
         <ul class="sages">
-          <li><a href="/sages/nishikawa.html"><div class="ph" aria-hidden="true">肖像</div>西川 寧</a></li>
-          <li><a href="/sages/aoyama.html"><div class="ph" aria-hidden="true">肖像</div>青山 杉雨</a></li>
-          <li><a href="/sages/kamijo.html"><div class="ph" aria-hidden="true">肖像</div>上條 信山</a></li>
-          <li><a href="/sages/tonomura.html"><div class="ph" aria-hidden="true">肖像</div>殿村 藍田</a></li>
-          <li><a href="/sages/asami.html"><div class="ph" aria-hidden="true">肖像</div>淺見 筧洞</a></li>
-          <li><a href="/sages/naruse.html"><div class="ph" aria-hidden="true">肖像</div>成瀬 映山</a></li>
-          <li><a href="/sages/kobayashi.html"><div class="ph" aria-hidden="true">肖像</div>小林 斗盦</a></li>
+          <li><a href="/sages/nishikawa.html"><img class="portrait" src="images/西川 寧 肖像.jpg" width="180" height="240" alt="西川 寧 肖像">西川 寧</a></li>
+          <li><a href="/sages/aoyama.html"><img class="portrait" src="images/青山 杉雨 肖像.jpg" width="180" height="240" alt="青山 杉雨 肖像">青山 杉雨</a></li>
+          <li><a href="/sages/kamijo.html"><img class="portrait" src="images/上條 信山 肖像.jpg" width="180" height="240" alt="上條 信山 肖像">上條 信山</a></li>
+          <li><a href="/sages/tonomura.html"><img class="portrait" src="images/殿村 藍田 肖像.jpg" width="180" height="240" alt="殿村 藍田 肖像">殿村 藍田</a></li>
+          <li><a href="/sages/asami.html"><img class="portrait" src="images/淺見 筧洞 肖像.jpg" width="180" height="240" alt="淺見 筧洞 肖像">淺見 筧洞</a></li>
+          <li><a href="/sages/naruse.html"><img class="portrait" src="images/成瀬 映山 肖像.jpg" width="180" height="240" alt="成瀬 映山 肖像">成瀬 映山</a></li>
+          <li><a href="/sages/kobayashi.html"><img class="portrait" src="images/小林 斗盦 肖像.jpg" width="180" height="240" alt="小林 斗盦 肖像">小林 斗盦</a></li>
           <li><a class="more" href="/sages/">▶ 一覧へ</a></li>
         </ul>
       </section>
@@ -217,12 +330,12 @@ a:hover{color:var(--shu);text-decoration:underline}
       <a class="banner" href="/zadankai/">
         <div class="banner-head">▎特別座談会<span aria-hidden="true">▶▶</span></div>
         <p>「謙慎書道会70回記念展に寄せて」<br>七十年の歩みと今後の展望を語る</p>
-        <div class="ph" aria-hidden="true">座談会写真（現行素材）</div>
+        <img class="banner-img" src="images/特別座談会の様子.jpg" width="590" height="200" alt="特別座談会の様子">
       </a>
       <a class="banner" href="/event/">
         <div class="banner-head">▎過去のイベント紹介<span aria-hidden="true">▶▶</span></div>
         <p>第68回 謙慎書道会展 特別イベント<br>「書こう！ぼくとわたしの手書き文字」</p>
-        <div class="ph" aria-hidden="true">イベント写真（現行素材）</div>
+        <img class="banner-img" src="images/「書こう！ぼくとわたしの手書き文字」イベントの様子.jpg" width="200" height="145" alt="「書こう！ぼくとわたしの手書き文字」イベントの様子">
       </a>
       <section class="office" aria-labelledby="h-office">
         <h2 id="h-office">事務局</h2>
@@ -247,5 +360,13 @@ a:hover{color:var(--shu);text-decoration:underline}
   </footer>
 
 </div>
+  <script>
+    (function(){
+      var btn=document.querySelector('.menu-btn'),nav=document.getElementById('gnav');
+      function set(open){nav.classList.toggle('is-open',open);btn.setAttribute('aria-expanded',open);btn.setAttribute('aria-label',open?'メニューを閉じる':'メニューを開く');}
+      btn.addEventListener('click',function(){set(!nav.classList.contains('is-open'));});
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('is-open')){set(false);btn.focus();}});
+    })();
+  </script>
 </body>
 </html>
